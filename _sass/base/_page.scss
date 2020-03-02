@@ -25,10 +25,12 @@
 
 	body {
 		background: _palette(bg);
+		width: 100%;
+		overflow-x: hidden;
 
 		// Prevents animation/transition "flicker" on page load.
 		// Automatically added/removed by js/main.js.
-			&.is-loading {
+			&:not(.done-loading) {
 				*, *:before, *:after {
 					@include vendor('animation', 'none !important');
 					@include vendor('transition', 'none !important');

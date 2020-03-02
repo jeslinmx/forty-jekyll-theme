@@ -99,19 +99,18 @@
 			$banner = $('#banner');
 
 		// Disable animations/transitions until the page has loaded.
-			$body.addClass('is-loading');
-
 			$window.on('load pageshow', function() {
-				window.setTimeout(function() {
-					$body.removeClass('is-loading');
-				}, 100);
+				$body.addClass('done-loading');
 			});
+
+		// Fade out the page when navigating away.
+			$window.on('beforeunload', function() {
+				$wrapper.addClass('is-transitioning');
+			})
 
 		// Clear transitioning state on unload/hide.
 			$window.on('unload pagehide', function() {
-				window.setTimeout(function() {
-					$('.is-transitioning').removeClass('is-transitioning');
-				}, 250);
+				$('.is-transitioning').removeClass('is-transitioning');
 			});
 
 		// Fix: Enable IE-only tweaks.
@@ -129,34 +128,13 @@
 				);
 			});
 
-		// Scrolly.
-			$('.scrolly').scrolly({
-				offset: function() {
-					return $header.height() - 2;
-				}
-			});
-
 		// Tiles.
 			var $tiles = $('.tiles > article');
 
 			$tiles.each(function() {
 
 				var $this = $(this),
-					$image = $this.find('.image'), $img = $image.find('img'),
-					$link = $this.find('.link'),
-					x;
-
-				// Image.
-
-					// Set image.
-						$this.css('background-image', 'url(' + $img.attr('src') + ')');
-
-					// Set position.
-						if (x = $img.data('position'))
-							$image.css('background-position', x);
-
-					// Hide original.
-						$image.hide();
+					$link = $this.find('.link');
 
 				// Link.
 					if ($link.length > 0) {
@@ -170,25 +148,8 @@
 
 						$link.on('click', function(event) {
 
-							var href = $link.attr('href');
-
-							// Prevent default.
-								event.stopPropagation();
-								event.preventDefault();
-
 							// Start transitioning.
-								$this.addClass('is-transitioning');
 								$wrapper.addClass('is-transitioning');
-
-							// Redirect.
-								window.setTimeout(function() {
-
-									if ($link.attr('target') == '_blank')
-										window.open(href);
-									else
-										location.href = href;
-
-								}, 500);
 
 						});
 
@@ -226,24 +187,8 @@
 
 		// Banner.
 			$banner.each(function() {
-
-				var $this = $(this),
-					$image = $this.find('.image'), $img = $image.find('img');
-
 				// Parallax.
-					$this._parallax(0.275);
-
-				// Image.
-					if ($image.length > 0) {
-
-						// Set image.
-							$this.css('background-image', 'url(' + $img.attr('src') + ')');
-
-						// Hide original.
-							$image.hide();
-
-					}
-
+				$(this).find('.image')._parallax(-0.5);
 			});
 
 		// Menu.

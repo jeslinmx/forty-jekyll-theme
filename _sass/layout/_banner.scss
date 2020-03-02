@@ -8,7 +8,6 @@
 
 	#banner {
 		@include vendor('align-items', 'center');
-		@include vendor('background-image', 'url("../images/banner.jpg")');
 		@include vendor('display', 'flex');
 		@include padding(4em, 0, (2em, 0, 0, 0));
 		background-attachment: fixed;
@@ -55,10 +54,6 @@
 			position: relative;
 			z-index: 2;
 
-			.image {
-				display: none;
-			}
-
 			header {
 				width: auto;
 
@@ -94,6 +89,18 @@
 			}
 		}
 
+		> .image {
+			display: block;
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			background-size: cover;
+			background-position: center;
+			@include vendor("transition", "opacity #{_duration(banner)} ease");
+		}
+
 		&.major {
 			height: 75vh;
 			min-height: 30em;
@@ -111,14 +118,16 @@
 		&.style5 { &:after { background-color: _palette(accent5); } }
 		&.style6 { &:after { background-color: _palette(accent6); } }
 
-		body.is-loading & {
-			&:after {
-				opacity: 1.0;
+		body:not(.done-loading) & {
+			opacity: 0;
+
+			.image {
+				opacity: 0;
 			}
 
 			> .inner {
 				@include vendor('filter', 'blur(0.125em)');
-				@include vendor('transform', 'translateX(-0.5em)');
+				@include vendor('transform', 'translateY(0.5em)');
 				opacity: 0;
 			}
 		}
