@@ -3,6 +3,6 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 	<meta name="title" content="{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}">
-	<meta name="description" content="{% if page.description%}{{ page.description}}{% else %}{{ content | strip_html | truncatewords: 50 }}{% endif %}">
+	<meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ content | strip_html | truncatewords: 50 }}{% endif %}">
 	<link rel="stylesheet" href="{{ "assets/css/main.css" | relative_url }}">
 </head>
