@@ -98,6 +98,7 @@
 			right: 0;
 			background-size: cover;
 			background-position: center;
+			@include vendor("filter", "blur(4px)");
 			@include vendor("transition", "opacity #{_duration(banner)} ease");
 		}
 
