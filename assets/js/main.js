@@ -19,7 +19,7 @@
 	 * Applies parallax scrolling to an element's background image.
 	 * @return {jQuery} jQuery object.
 	 */
-	$.fn._parallax = (skel.vars.browser == 'ie' || skel.vars.browser == 'edge' || skel.vars.mobile) ? function() { return $(this) } : function(intensity) {
+	$.fn._parallax = (skel.vars.browser == 'ie' || skel.vars.browser == 'edge' || skel.vars.mobile) ? function() { return $(this) } : function(selector, intensity) {
 
 		var	$window = $(window),
 			$this = $(this);
@@ -30,7 +30,7 @@
 		if (this.length > 1) {
 
 			for (var i=0; i < this.length; i++)
-				$(this[i])._parallax(intensity);
+				$(this[i])._parallax(selector, intensity);
 
 			return $this;
 
@@ -46,14 +46,14 @@
 
 			on = function() {
 
-				$t.css('background-position', 'center 100%, center 100%, center 0px');
-
 				$window
 					.on('scroll._parallax', function() {
 
-						var pos = parseInt($window.scrollTop()) - parseInt($t.position().top);
+						var clientRect = $t[0].getBoundingClientRect();
+						var scrolledFrac = ((clientRect.bottom / ( document.documentElement.clientHeight + clientRect.height)) * -2) + 1;
+						var scaleFactor = 1 + intensity * (document.documentElement.clientHeight / clientRect.height - 1);
 
-						$t.css('background-position', 'center ' + (pos * (-1 * intensity)) + 'px');
+						$t.find(selector).css('transform', 'translateY(' + clientRect.height * scrolledFrac * intensity + 'px)' + 'scale(' + scaleFactor + ')');
 
 					});
 
@@ -186,10 +186,7 @@
 			}
 
 		// Banner.
-			$banner.each(function() {
-				// Parallax.
-				$(this).find('.image')._parallax(-0.5);
-			});
+			$banner._parallax('.image', 0.5);
 
 		// Menu.
 			var $menu = $('#menu'),
