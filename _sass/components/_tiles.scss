@@ -115,42 +115,42 @@
 			}
 
 			&:nth-child(6n - 5) {
-				@include vendor("transition-delay", '0.1s');
+				@include vendor("transition-delay", '0.6s');
 				&:before {
 					background-color: _palette(accent1);
 				}
 			}
 
 			&:nth-child(6n - 4) {
-				@include vendor("transition-delay", '0.2s');
+				@include vendor("transition-delay", '0.8s');
 				&:before {
 					background-color: _palette(accent2);
 				}
 			}
 
 			&:nth-child(6n - 3) {
-				@include vendor("transition-delay", '0.3s');
+				@include vendor("transition-delay", '1.0s');
 				&:before {
 					background-color: _palette(accent3);
 				}
 			}
 
 			&:nth-child(6n - 2) {
-				@include vendor("transition-delay", '0.4s');
+				@include vendor("transition-delay", '1.2s');
 				&:before {
 					background-color: _palette(accent4);
 				}
 			}
 
 			&:nth-child(6n - 1) {
-				@include vendor("transition-delay", '0.5s');
+				@include vendor("transition-delay", '1.4s');
 				&:before {
 					background-color: _palette(accent5);
 				}
 			}
 
 			&:nth-child(6n) {
-				@include vendor("transition-delay", '0.6s');
+				@include vendor("transition-delay", '1.6s');
 				&:before {
 					background-color: _palette(accent6);
 				}
