@@ -51,9 +51,13 @@
 
 						var clientRect = $t[0].getBoundingClientRect();
 						var scrolledFrac = ((clientRect.bottom / ( document.documentElement.clientHeight + clientRect.height)) * -2) + 1;
-						var scaleFactor = Math.max(1 + intensity * (document.documentElement.clientHeight / clientRect.height - 1), 1);
+						var buffer = intensity * (document.documentElement.clientHeight - clientRect.height) / 2
 
-						$t.find(selector).css('transform', 'translateY(' + clientRect.height * scrolledFrac * intensity + 'px)' + 'scale(' + scaleFactor + ')');
+						$t.find(selector).css({
+							'top': -buffer + 'px',
+							'bottom': -buffer + 'px',
+							'transform': 'translateY(' + clientRect.height * scrolledFrac * intensity + 'px)'
+						});
 
 					});
 
